@@ -2,6 +2,8 @@ package com.alonz.reumanatlot;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -29,53 +31,48 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        pb = (ProgressBar)findViewById(R.id.pb);
-            recycleView = (RecyclerView) findViewById(R.id.recyclerview);
-            recycleView.setHasFixedSize(true);
-        recycleView.setLayoutManager(new GridLayoutManager(this, 3));
-        //new GetDataFromFireBase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        Intent intent =getIntent();
-        intent.getStringExtra("color");
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference root = database.getReference("Natlot");
-        DatabaseReference colorRoot = root.child(intent.getStringExtra("color"));
-        colorRoot.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<String> values = (ArrayList<String>) dataSnapshot.getValue();
-                    recycleView.setAdapter(new ItemAdapter(getApplicationContext(), values));
 
-                }
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    Log.w("hh", "Failed to read value.", error.toException());
-                }
-            });
-    }
+        // Set the content of the activity to use the activity_main.xml layout file
+        setContentView(R.layout.tab_and_viewpage);
 
-    private class GetDataFromFireBase extends AsyncTask<Void, Void, Boolean> {
 
-        @Override
-        protected void onPreExecute() {
-            pb.setVisibility(View.VISIBLE);
-            recycleView.setVisibility(View.INVISIBLE);
-            super.onPreExecute();
+        // Find the view pager that will allow the user to swipe between fragments
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        }
+        // Create an adapter that knows which fragment should be shown on each page
+        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager());
 
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            return false;
-        }
+        // Set the adapter onto the view pager
+        viewPager.setAdapter(adapter);
 
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            pb.setVisibility(View.INVISIBLE);
-            recycleView.setVisibility(View.VISIBLE);
-        }
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+//        setContentView(R.layout.activity_main);
+//        pb = (ProgressBar)findViewById(R.id.pb);
+//            recycleView = (RecyclerView) findViewById(R.id.recyclerview);
+//            recycleView.setHasFixedSize(true);
+//        recycleView.setLayoutManager(new GridLayoutManager(this, 3));
+//        //new GetDataFromFireBase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        Intent intent =getIntent();
+//        intent.getStringExtra("color");
+//
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference root = database.getReference("Natlot");
+//        DatabaseReference colorRoot = root.child(intent.getStringExtra("color"));
+//        colorRoot.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    ArrayList<String> values = (ArrayList<String>) dataSnapshot.getValue();
+//                    recycleView.setAdapter(new ItemAdapter(getApplicationContext(), values));
+//
+//                }
+//                @Override
+//                public void onCancelled(DatabaseError error) {
+//                    // Failed to read value
+//                    Log.w("hh", "Failed to read value.", error.toException());
+//                }
+//            });
     }
     }
