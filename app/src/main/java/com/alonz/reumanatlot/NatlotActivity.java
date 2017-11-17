@@ -3,12 +3,14 @@ package com.alonz.reumanatlot;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -21,10 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity {
-    private RecyclerView recycleView;
-    private ProgressBar pb;
-
+public class NatlotActivity extends AppCompatActivity {
 
     private ArrayList<String> mItems = new ArrayList<>();
 
@@ -49,30 +48,15 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-//        setContentView(R.layout.activity_main);
-//        pb = (ProgressBar)findViewById(R.id.pb);
-//            recycleView = (RecyclerView) findViewById(R.id.recyclerview);
-//            recycleView.setHasFixedSize(true);
-//        recycleView.setLayoutManager(new GridLayoutManager(this, 3));
-//        //new GetDataFromFireBase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//        Intent intent =getIntent();
-//        intent.getStringExtra("color");
-//
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference root = database.getReference("Natlot");
-//        DatabaseReference colorRoot = root.child(intent.getStringExtra("color"));
-//        colorRoot.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    ArrayList<String> values = (ArrayList<String>) dataSnapshot.getValue();
-//                    recycleView.setAdapter(new ItemAdapter(getApplicationContext(), values));
-//
-//                }
-//                @Override
-//                public void onCancelled(DatabaseError error) {
-//                    // Failed to read value
-//                    Log.w("hh", "Failed to read value.", error.toException());
-//                }
-//            });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     }

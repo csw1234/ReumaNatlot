@@ -12,23 +12,23 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category_actvity_test);
-        Button redButton= (Button)findViewById(R.id.RedButton);
-        Button cyanButton=(Button)findViewById(R.id.CyanButton);
+        Button natlotButton= (Button)findViewById(R.id.Natlot);
+        Button meyhamButton= (Button)findViewById(R.id.meyhamim);
 
-        redButton.setOnClickListener(new View.OnClickListener() {
+
+        natlotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(CategoryActivity.this, MainActivity.class);
+                Intent intent =new Intent(CategoryActivity.this, NatlotActivity.class);
                 intent.putExtra("color","Red");
                 startActivity(intent);
             }
         });
-
-        cyanButton.setOnClickListener(new View.OnClickListener() {
+        meyhamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(CategoryActivity.this, MainActivity.class);
-                intent.putExtra("color","Cyan");
+                Intent intent =new Intent(CategoryActivity.this, MeyhamActivity.class);
+                intent.putExtra("color","Red");
                 startActivity(intent);
             }
         });
