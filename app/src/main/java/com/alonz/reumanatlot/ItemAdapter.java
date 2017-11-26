@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.squareup.picasso.Picasso;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -63,6 +64,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         //Glide.with(context).load(mItemData.get(position)).error(R.id.tv_error_message_display).into(holder.imageView);
         holder.progressBar.setVisibility(View.VISIBLE);
         String x = (String)mItemData[position];
+
         Glide.with(context)
                 .load(x)
                 .asBitmap()
@@ -79,6 +81,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
                       holder.progressBar.setVisibility(View.GONE);
                         return false;
                     }
+
                 })
                 .into(new FileTarget(x, holder.imageView,300,300));
 

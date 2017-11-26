@@ -11,8 +11,13 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.alonz.reumanatlot.MyGlideModule"
+            android:value="GlideModule" />
+
         <activity
             android:name=".NatlotActivity"
+            android:theme="@style/AppTheme_with_ActionBar"
             android:parentActivityName=".CategoryActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -28,7 +33,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MeyhamActivity"></activity>
+        <activity
+            android:name=".MeyhamActivity"
+            android:theme="@style/AppTheme_with_ActionBar"
+
+            android:parentActivityName=".CategoryActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alonz.reumanatlot.CategoryActivity" />
+        </activity>
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"></activity>
     </application>
 
 </manifest>
