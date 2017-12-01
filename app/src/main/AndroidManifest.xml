@@ -12,11 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
-            android:name="com.alonz.reumanatlot.MyGlideModule"
+            android:name="com.alonz.reumanatlot.Natlot.MyGlideModule"
             android:value="GlideModule" />
 
         <activity
-            android:name=".NatlotActivity"
+            android:name=".Natlot.NatlotActivity"
             android:theme="@style/AppTheme_with_ActionBar"
             android:parentActivityName=".CategoryActivity">
 

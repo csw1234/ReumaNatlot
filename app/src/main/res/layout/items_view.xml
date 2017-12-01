@@ -12,13 +12,27 @@
             android:adjustViewBounds="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="8dp"
             android:layout_gravity="center"
+            android:minHeight="150dp"
+            android:minWidth="150dp"
             />
         <ProgressBar
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/pb_item"/>
+            android:id="@+id/pb_item"
+            android:layout_gravity="center"
+            android:maxHeight="50dp"
+            android:maxWidth="50dp"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_favorites"
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            />
 
 
     </FrameLayout>

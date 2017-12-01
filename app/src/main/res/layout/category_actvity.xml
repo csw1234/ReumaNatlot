@@ -14,64 +14,96 @@
         android:layout_height="131dp"
         android:src="@drawable/logo" />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/CategoryButton"
-        android:background="@color/button1"
-        android:layout_weight="1"
-        tools:layout_editor_absoluteY="92dp" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_weight="1">
-    <TextView
-        android:id="@+id/textView3"
-        style="@style/CategoryButton"
-        android:layout_weight="1"
-        android:background="@color/button2" />
-    <TextView
-        android:id="@+id/textView4"
-        style="@style/CategoryButton"
-        android:layout_weight="1"
-        android:background="@color/button1" />
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_weight="1"
-        style="@style/CategoryButton"
-        android:background="@color/button2" />
-</LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:isScrollContainer="true"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/natlotButton"
+                    style="@style/CategoryButton"
+                    android:background="@color/button1"
+                    android:text="נטלות" />
+
+
+               <LinearLayout
+                  android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:isScrollContainer="true"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/holdersButton"
+                        style="@style/CategoryButton"
+                        android:layout_weight="1"
+                        android:background="@color/button2"
+
+                        android:text="תחתיות" />
+
+                    <Button
+                        android:id="@+id/meyhamButton"
+                        style="@style/CategoryButton"
+                        android:layout_weight="1"
+                        android:background="@color/button2"
+                        android:text="מיחמים" />
+
+                    <Button
+                        android:id="@+id/sacomonimButton"
+                        style="@style/CategoryButton"
+                        android:layout_weight="1"
+                        android:background="@color/button2"
+                        android:text="סכומונים" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:isScrollContainer="true"
+
+                    >
+
+                    <Button
+                        android:id="@+id/kidushButton"
+                        style="@style/CategoryButton"
+                        android:layout_weight="1"
+                        android:background="@color/button2"
+                        android:text="כוס קידוש" />
+
+                    <Button
+                        android:id="@+id/saltButton"
+                        style="@style/CategoryButton"
+                        android:layout_weight="1"
+                        android:background="@color/button2"
+                        android:text="מלחיות" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        >
-    <TextView
-        android:id="@+id/textView7"
-        style="@style/CategoryButton"
-        android:layout_weight="1"
-        android:background="@color/button2" />
-
-        <TextView
-            android:id="@+id/textView8"
-            style="@style/CategoryButton"
-            android:layout_weight="1"
-            android:background="@color/button2" />
-
-</LinearLayout>
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
-        app:menu="@menu/navigation" />
-</LinearLayout>
+        android:layout_gravity="bottom">
 
-
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#f8f0d9"
+            app:menu="@menu/navigation" />
+    </LinearLayout>
 </LinearLayout>
