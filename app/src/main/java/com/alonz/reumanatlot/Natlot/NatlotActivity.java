@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 public class NatlotActivity extends AppCompatActivity {
 
-    private ArrayList<String> mItems = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

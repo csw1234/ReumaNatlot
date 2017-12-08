@@ -2,13 +2,17 @@ package com.alonz.reumanatlot.Natlot;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.alonz.reumanatlot.AppDatabase;
 import com.alonz.reumanatlot.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -19,57 +23,92 @@ import com.bumptech.glide.request.target.Target;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by alonz on 13/11/2017.
  */
 
 public class NatlaAdapter extends RecyclerView.Adapter<NatlaAdapter.ViewHolder>{
-    private String[] mItemData;
-    Context context;
+    private ArrayList<Natla> mItemData;
+    private Context context;
+    private ImageView favoriteButton;
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public ImageView imageView;
-        public ProgressBar progressBar;
+        public ImageView holderImageView;
+        public ProgressBar holderPb;
+        public ImageView holderFavoriteButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.image);
-            progressBar = itemView.findViewById(R.id.pb_item);
+            holderImageView = itemView.findViewById(R.id.image);
+            holderPb = itemView.findViewById(R.id.pb_item);
+            holderFavoriteButton = itemView.findViewById(R.id.favoriteButton);
+            favoriteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        Natla clickedDataItem = mItemData.get(pos);
+                        Toast.makeText(view.getContext(), "You clicked " + clickedDataItem.getUrl()+" "+"favorite state is "+clickedDataItem.getFavorite(), Toast.LENGTH_SHORT).show();
+                        Log.e("ss",clickedDataItem.getUrl());
+                        if (!clickedDataItem.getFavorite()){
+                            clickedDataItem.setFavorite(true);
+                            AppDatabase.getAppDatabase(context).natlaDao().insert(createNote(clickedDataItem.getUrl(),true));
+                            notifyItemChanged(pos);
+                        }else{
+                            clickedDataItem.setFavorite(false);
+                            AppDatabase.getAppDatabase(context).natlaDao().delete(clickedDataItem);
+                            notifyItemChanged(pos);
+                        }
 
-
+                    }
+                }
+            });
 
         }
 
         @Override
         public void onClick(View view) {
-            int position = getAdapterPosition();
-            if (position != RecyclerView.NO_POSITION){
 
-            }
         }
     }
-    public NatlaAdapter(Context context, String[] mItemData) {
-        this.mItemData = mItemData;
+
+    public NatlaAdapter(Context context) {
+        this.context = context;
+    }
+    public NatlaAdapter(Context context, ArrayList<Natla> mItemData) {
+        this.mItemData=mItemData;
         this.context=context;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_view,parent,false);
+        favoriteButton = view.findViewById(R.id.favoriteButton);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        //Glide.with(context).load(mItemData.get(mPosition)).error(R.id.tv_error_message_display).into(holder.imageView);
-        holder.progressBar.setVisibility(View.VISIBLE);
+        //Glide.with(context).load(mItemData.get(mPosition)).error(R.id.tv_error_message_display).into(holder.favoriteButton);
 
-        String x = mItemData[position];
-       // Picasso.with(context).load(x).resize(200,200).into(holder.imageView);
+        holder.holderPb.setVisibility(View.VISIBLE);
+        Natla natla = mItemData.get(position);
+        String url= natla.getUrl();
+        if (natla.getFavorite()){
+            holder.holderFavoriteButton.setBackgroundResource(R.mipmap.ic_favorites_red);
+        }else {
+            holder.holderFavoriteButton.setBackgroundResource(R.mipmap.ic_favorite_hollow_black);
+        }
+
+
+       // Picasso.with(context).load(x).resize(200,200).into(holder.favoriteButton);
 
         Glide.with(context)
-                .load(x)
+                .load(url)
                 .asBitmap()
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
@@ -81,12 +120,12 @@ public class NatlaAdapter extends RecyclerView.Adapter<NatlaAdapter.ViewHolder>{
 
                     @Override
                     public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                      holder.progressBar.setVisibility(View.GONE);
+                      holder.holderPb.setVisibility(View.GONE);
                         return false;
                     }
 
                 })
-                .into(new FileTarget(x, holder.imageView,300,300));
+                .into(new FileTarget(url, holder.holderImageView,300,300));
 
 
 
@@ -94,7 +133,7 @@ public class NatlaAdapter extends RecyclerView.Adapter<NatlaAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return mItemData.length;
+        return mItemData.size();
     }
 
 
@@ -147,6 +186,13 @@ public class NatlaAdapter extends RecyclerView.Adapter<NatlaAdapter.ViewHolder>{
         private void onSaveException(Exception e) {
             // do nothing, should be overriden (optional)
         }
+
+    }
+    private Natla createNote(String url, Boolean favorite){
+        Natla note = new Natla();
+        note.setUrl(url);
+        note.setFavorite(favorite);
+        return note;
     }
 
 }

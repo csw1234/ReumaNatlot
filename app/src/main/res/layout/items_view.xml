@@ -27,16 +27,16 @@
 
 
         <ImageView
+            android:id="@+id/favoriteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_favorites"
+            android:src="@mipmap/ic_favorite_hollow_black"
             android:layout_gravity="end"
             android:layout_margin="8dp"
             />
 
 
     </FrameLayout>
-
 
 
 </LinearLayout>
