@@ -4,9 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +78,10 @@ public class DashFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.natlot_recycler_view, container, false);
         RecyclerView recyclerView;
+
+        Toolbar actionBar =  getActivity().findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(actionBar);
+
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerViewAdapter = new NatlaAdapter(getContext());
         GridLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 2);

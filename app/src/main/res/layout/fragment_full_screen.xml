@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     android:layout_alignParentBottom="true"
     tools:context="com.alonz.reumanatlot.FullScreenFragment">
 
@@ -28,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 />
+
             <ImageView
                 android:id="@+id/full_screen"
                 android:layout_width="match_parent"
@@ -41,7 +43,9 @@
                 android:id="@+id/close_full_screen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/full_screen"
+                android:layout_alignRight="@id/full_screen"
+                android:layout_margin="10dp"
+                android:layout_alignTop="@id/full_screen"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/ic_close" />
         </RelativeLayout>

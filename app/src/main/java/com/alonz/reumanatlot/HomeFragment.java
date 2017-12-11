@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +74,11 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Toolbar actionBar =  getActivity().findViewById(R.id.toolbar);
+        actionBar.setVisibility(View.GONE);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(actionBar);
+
+
         View view= inflater.inflate(R.layout.fragment_home, container, false);
 
          Button natlotButton = view.findViewById(R.id.natlotButton);
@@ -175,5 +182,13 @@ public class HomeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Toolbar actionBar =  getActivity().findViewById(R.id.toolbar);
+        actionBar.setVisibility(View.VISIBLE);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(actionBar);
     }
 }

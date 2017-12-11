@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.module.GlideModule;
 import com.squareup.picasso.Picasso;
 
 
@@ -75,18 +78,19 @@ public class FullScreenFragment extends Fragment {
         pb.setVisibility(View.VISIBLE);
         ImageView imageView = view.findViewById(R.id.full_screen);
         ImageView closeView = view.findViewById(R.id.close_full_screen);
-        Picasso.with(getContext()).load(mParam1).into(imageView, new com.squareup.picasso.Callback(){
-            @Override
-            public void onSuccess() {
-
-                pb.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onError() {
-
-            }
-        });
+        Glide.with(getContext()).load(mParam1).into(imageView);
+//        Picasso.with(getContext()).load(mParam1).into(imageView, new com.squareup.picasso.Callback(){
+//            @Override
+//            public void onSuccess() {
+//
+//                pb.setVisibility(View.INVISIBLE);
+//            }
+//
+//            @Override
+//            public void onError() {
+//
+//            }
+//        });
 
         closeView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +119,7 @@ public class FullScreenFragment extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            Toast.makeText(getContext(), "You clicked " , Toast.LENGTH_SHORT).show();
+
 
         }
     }
