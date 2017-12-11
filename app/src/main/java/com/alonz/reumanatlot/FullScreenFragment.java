@@ -1,31 +1,29 @@
-package com.alonz.reumanatlot.Natlot;
+package com.alonz.reumanatlot;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.alonz.reumanatlot.R;
+import com.squareup.picasso.Picasso;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
+ * {@link FullScreenFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NatlotMainFragment#newInstance} factory method to
+ * Use the {@link FullScreenFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NatlotMainFragment extends Fragment {
+public class FullScreenFragment extends Fragment {
+    ProgressBar pb;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,7 +35,7 @@ public class NatlotMainFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public NatlotMainFragment() {
+    public FullScreenFragment() {
         // Required empty public constructor
     }
 
@@ -47,11 +45,11 @@ public class NatlotMainFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NatlotMainFragment.
+     * @return A new instance of fragment FullScreenFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NatlotFragment newInstance(String param1, String param2) {
-        NatlotFragment fragment = new NatlotFragment();
+    public static FullScreenFragment newInstance(String param1, String param2) {
+        FullScreenFragment fragment = new FullScreenFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,30 +64,42 @@ public class NatlotMainFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        final View view =  inflater.inflate(R.layout.fragment_full_screen, container, false);
+        pb = view.findViewById(R.id.pb_fullscreen);
+        pb.setVisibility(View.VISIBLE);
+        ImageView imageView = view.findViewById(R.id.full_screen);
+        ImageView closeView = view.findViewById(R.id.close_full_screen);
+        Picasso.with(getContext()).load(mParam1).into(imageView, new com.squareup.picasso.Callback(){
+            @Override
+            public void onSuccess() {
 
-        View view= inflater.inflate(R.layout.fragment_natlot, container, false);
-        // Find the view pager that will allow the user to swipe between fragments
-        ViewPager viewPager =  view.findViewById(R.id.viewpager);
+                pb.setVisibility(View.INVISIBLE);
+            }
 
-        // Create an adapter that knows which fragment should be shown on each page
-        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getFragmentManager());
+            @Override
+            public void onError() {
 
+            }
+        });
 
-        Log.e("detach", "natlotmainfragmentpageradapter");
-        // Set the adapter onto the view pager
-        viewPager.setAdapter(adapter);
+        closeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                remove();
+            }
+        });
 
-        TabLayout tabLayout =  view.findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        return view;
 
-    return view;
+    }
+    public void remove(){
+        getFragmentManager().beginTransaction().remove(this).commit();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,9 +115,15 @@ public class NatlotMainFragment extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            Toast.makeText(context,"Natlot Fragment", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "You clicked " , Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     /**
@@ -123,17 +139,5 @@ public class NatlotMainFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.navigation, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 }

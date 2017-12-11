@@ -20,6 +20,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.alonz.reumanatlot.Natlot.NatlotFragment;
 
@@ -27,10 +29,12 @@ import com.alonz.reumanatlot.Natlot.NatlotFragment;
 /**
  * Provides the appropriate {@link Fragment} for a view pager.
  */
-public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
+public class SimpleFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private Context mContext;
     public SimpleFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
+        Log.e("detach", "simplefragmentadapter");
+
     }
     public SimpleFragmentPagerAdapter(Context context, FragmentManager fm){super(fm); mContext=context;
 
@@ -41,6 +45,7 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
         Bundle args = new Bundle();
         args.putInt("mPosition",position);
         NatlotFragment NatlotFragment =new NatlotFragment();
+        Log.e("detach", "natlotfragment create");
         NatlotFragment.setArguments(args);
 
    return NatlotFragment;

@@ -2,6 +2,7 @@ package com.alonz.reumanatlot.Natlot;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.alonz.reumanatlot.AppDatabase;
+import com.alonz.reumanatlot.FullScreenFragment;
+import com.alonz.reumanatlot.ItemsMainFragment;
 import com.alonz.reumanatlot.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -33,6 +36,7 @@ public class NatlaAdapter extends RecyclerView.Adapter<NatlaAdapter.ViewHolder>{
     private List<Natla> mItemData;
     private Context context;
     private ImageView favoriteButton;
+    private ImageView imageView;
 
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
@@ -72,6 +76,22 @@ public class NatlaAdapter extends RecyclerView.Adapter<NatlaAdapter.ViewHolder>{
                 }
             });
 
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION) {
+                        Natla clickedDataItem = mItemData.get(pos);
+                        Log.e("ss", clickedDataItem.getUrl());
+                        if (!clickedDataItem.getFavorite()) {
+                            FullScreenFragment fullScreenFragment = FullScreenFragment.newInstance(clickedDataItem.getUrl(),null);
+                            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                            activity.getSupportFragmentManager().beginTransaction().add(R.id.content, fullScreenFragment).addToBackStack(null).commit();
+                        }
+                    }
+                }
+            });
+
         }
 
         @Override
@@ -79,6 +99,7 @@ public class NatlaAdapter extends RecyclerView.Adapter<NatlaAdapter.ViewHolder>{
 
         }
     }
+
 
     public NatlaAdapter(Context context) {
         this.context = context;
@@ -93,6 +114,7 @@ public class NatlaAdapter extends RecyclerView.Adapter<NatlaAdapter.ViewHolder>{
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_view,parent,false);
         favoriteButton = view.findViewById(R.id.favoriteButton);
+        imageView = view.findViewById(R.id.image);
         return new ViewHolder(view);
     }
 

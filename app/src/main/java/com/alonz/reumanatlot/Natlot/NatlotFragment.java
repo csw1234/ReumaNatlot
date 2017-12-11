@@ -44,6 +44,7 @@ public class NatlotFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.natlot_recycler_view, container, false);
+        Log.e("detach", "natlotfragment on create view");
         pb = rootView.findViewById(R.id.pb_natlot_list);
         pb.setVisibility(View.VISIBLE);
         String color;

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +65,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Log.e("create","created Home");
     }
 
     @Override
@@ -71,7 +74,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_home, container, false);
 
-        Button natlotButton = view.findViewById(R.id.natlotButton);
+         Button natlotButton = view.findViewById(R.id.natlotButton);
         natlotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,10 +87,7 @@ public class HomeFragment extends Fragment {
         meyhamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemsMainFragment itemsMainFragment = new ItemsMainFragment();
-                Bundle item = new Bundle();
-                item.putString("item","Meyham");
-                itemsMainFragment.setArguments(item);
+                ItemsMainFragment itemsMainFragment = ItemsMainFragment.newInstance("Meyham",null);
                 swapFragment(itemsMainFragment);
             }
         });
@@ -96,10 +96,7 @@ public class HomeFragment extends Fragment {
         sakomonimButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemsMainFragment itemsMainFragment = new ItemsMainFragment();
-                Bundle item = new Bundle();
-                item.putString("item","Sakomonim");
-                itemsMainFragment.setArguments(item);
+                ItemsMainFragment itemsMainFragment = ItemsMainFragment.newInstance("Sakomonim",null);
                 swapFragment(itemsMainFragment);
             }
         });
@@ -108,10 +105,7 @@ public class HomeFragment extends Fragment {
         kidushButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemsMainFragment itemsMainFragment = new ItemsMainFragment();
-                Bundle item = new Bundle();
-                item.putString("item","Kidush");
-                itemsMainFragment.setArguments(item);
+                ItemsMainFragment itemsMainFragment = ItemsMainFragment.newInstance("Kidush",null);
                 swapFragment(itemsMainFragment);
             }
         });
@@ -120,10 +114,7 @@ public class HomeFragment extends Fragment {
         holdersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemsMainFragment itemsMainFragment = new ItemsMainFragment();
-                Bundle item = new Bundle();
-                item.putString("item","Holders");
-                itemsMainFragment.setArguments(item);
+                ItemsMainFragment itemsMainFragment = ItemsMainFragment.newInstance("Holders",null);
                 swapFragment(itemsMainFragment);
             }
         });
@@ -132,10 +123,7 @@ public class HomeFragment extends Fragment {
         saltButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemsMainFragment itemsMainFragment = new ItemsMainFragment();
-                Bundle item = new Bundle();
-                item.putString("item","Salt");
-                itemsMainFragment.setArguments(item);
+                ItemsMainFragment itemsMainFragment = ItemsMainFragment.newInstance("Salt",null);
                 swapFragment(itemsMainFragment);
             }
         });
